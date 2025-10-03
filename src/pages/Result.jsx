@@ -4,7 +4,6 @@ import ScoreMeter from '../components/ScoreMeter'
 
 const Result = () => {
   const { resumeData } = useResumeContext()
-  console.log(resumeData)
 
   if (!resumeData) {
     return (

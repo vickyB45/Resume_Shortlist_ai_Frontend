@@ -23,7 +23,6 @@ const Sidebar = () => {
     queryFn: getMe,
     retry: false,
   });
-  console.log(user)
 
  const { mutate: logout, isPending } = useMutation({
     mutationFn: logoutUser,

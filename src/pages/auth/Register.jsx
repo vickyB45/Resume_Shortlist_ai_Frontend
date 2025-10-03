@@ -10,20 +10,20 @@ import toast from 'react-hot-toast'
 const Register = () => {
 
 
-    const  navigate = useNavigate()
+    const navigate = useNavigate()
 
-const registerMutation = useMutation({
-    mutationFn:(value) =>registerUser(value),
-    onSuccess:(data)=>{
-        toast.success(data.message)
-        localStorage.setItem("token",data.token)
-        navigate("/")
-    },
-     onError: (error) => {
-      console.error("Login failed:", error);
-      toast.error(error.response.data.message);
-    },
-})
+    const registerMutation = useMutation({
+        mutationFn: (value) => registerUser(value),
+        onSuccess: (data) => {
+            toast.success(data.message)
+            localStorage.setItem("token", data.token)
+            navigate("/")
+        },
+        onError: (error) => {
+            console.error("Login failed:", error);
+            toast.error(error.response.data.message);
+        },
+    })
 
 
     const formik = useFormik({
@@ -115,9 +115,10 @@ const registerMutation = useMutation({
                                     <p className="text-red-500 text-start text-sm mt-1">{formik.errors.password}</p>
                                 )}
                             </div>
-                            <button type='submit' className='w-full'>
+                            <button type='submit' disabled={registerMutation.isPending}
+                                className={`w-full ${registerMutation.isPending ? "cursor-not-allowed" : "bg-black px-6 py-2 cursor-pointer transition-all duration-200 rounded-lg active:scale-[.97] text-center border-1 text-white hover:bg-white hover:text-black hover:border-1"}`}
+                            >   Register
 
-                                <Button classname={'bg-black text-center border-1 text-white hover:bg-white hover:text-black hover:border-1'} text="Register" />
                             </button>
                             <p className="text-center md:text-left">
                                 Don't have an Account?

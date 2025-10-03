@@ -1,8 +1,9 @@
 import axios from "axios"
+import toast from "react-hot-toast";
 
 
 export const axiosBaseUrl = axios.create({
-    baseURL:"http://localhost:9090/api"
+    baseURL:"https://resume-shortlist-ai-backend-3.onrender.com/api"
 })
 
 
@@ -38,15 +39,24 @@ export const logoutUser = async () => {
 }
 
 
-export const getMe = async ()=>{
-try {    
-  const res = await axiosBaseUrl.get("/auth/me",{withCredentials:true});
+export const getMe = async () => {
+  try {    
+    const res = await axiosBaseUrl.get("/auth/me", {
+      withCredentials: true,
+    });
+    
+
     return res.data;
   } catch (error) {
-    console.error("User not found:", error);
+    if (error.response) {
+      console.error("User not found:", error.response.data?.message || error.message);
+      toast.error(error.response.data?.message)
+    } else {
+      console.error("Request failed:", error.message);
+    }
     throw error;
   }
-}
+};
 
 export const getAllHistory = async (userId)=>{
 try {    
